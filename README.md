@@ -20,7 +20,7 @@ So basically something like:
 Feel free to take any liberties with the design, and to use any library or tool you feel will help you accomplish the task.
 
 
-Please do not spend more than 2-3 hours on this:
+Please do not spend more than 3-4 hours on this:
 
 
  ### Submitting
