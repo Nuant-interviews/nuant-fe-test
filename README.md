@@ -10,6 +10,7 @@ It's been configured with Tailwindcss in case you want to use it Pokenode to ret
 The purpose of the test is to implement an app that have the ability of :
 
 - Search for Pokemon by `name` and the posibility to filter the results by `type`
+  (User can search by name, user can filter pokemons by type, user can do both at the same time also)
 - Display the search results with enough detail to be able to identify to which Pokemon each result belongs.(Name and a image would do)
 - View more information about the Pokemon on a dedicated page by clicking a search result. (You can display Name, different sprites, weight, height and basic information, dealing with linked entities will be bonus point but arent really mandatory).
 - See the previous search results when navigating back to the search page from the pokemon details page.
