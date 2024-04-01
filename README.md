@@ -18,7 +18,9 @@ The purpose of the test is to implement an app that have the ability of :
 So basically something like:
 ![Screenshot](screenshot.png)
 
-Feel free to take any liberties with the design, and to use any library or tool you feel will help you accomplish the task.
+Feel free to take any liberties with the design, and to use any library or tool you feel will help you accomplish the task. 
+
+Remember this is a technical test so do this as close as you would work in our project or real life scenario, (a proper commit log would be useful to see how you approach and tackle the test imagining it as a long term project that you would do additional functionalities in the future)
 
 
 
@@ -28,4 +30,3 @@ Feel free to take any liberties with the design, and to use any library or tool 
   To submit your finished project, share with us a link to a GitHub repository containing its code. Along with instructions on how to run the app, include answers to the following:
 
 - What part of building the project was the most difficult? Why?
-- If you had to filter the list of Pokemons by its  `type` how would you have implemented it?
