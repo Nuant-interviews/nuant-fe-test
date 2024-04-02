@@ -12,6 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "axios": "^1.6.5",
     "axios-cache-interceptor": "^1.4.1",
     "localforage": "^1.10.0",

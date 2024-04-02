@@ -1,7 +1,7 @@
 import './App.css'
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
-
+import { createContext } from 'react'
 
 // routes import
 import Root from './routes/root'
@@ -12,12 +12,16 @@ const router = createBrowserRouter([
     { path: '/pokemons/:pokemonId', element: <Pokemon />, },
 ])
 
+const PokemonContext = createContext(null);
+
 
 function App() {
 
   return (
     <>
-      <RouterProvider router={router}/>
+      <PokemonContext.Provider value={null}>
+        <RouterProvider router={router}/>
+      </PokemonContext.Provider>
     </>
   )
 }
