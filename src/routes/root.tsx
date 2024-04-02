@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PokemonContext } from '../App';
 
-import pokemonService from '../services/pokemonService';
 
 const Root: React.FC = () => {
-
-    const fetchPokemon = async () => {
-        // get all pokemons from pokemon service
-        await pokemonService.getAllPokemonNames();
-    }
-
+    const context = useContext(PokemonContext);
     return (
         <div>
-            <button onClick={() => fetchPokemon()}>Fetch Pikachu</button>
+            <h1>Pokedex</h1>
+            <input 
+                type='text'
+                placeholder='Search Pokemon'
+            />
+            <ul>
+                {context.pokemons.map((pokemon) => {
+                    console.log(pokemon);
+                    return (
+                        <li key={pokemon.id}>
+                            <a href={`/pokemons/${pokemon.id}`}>{pokemon.name}</a>
+                        </li>
+                    );
+                })}
+            </ul>
+
         </div>
     );
     

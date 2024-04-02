@@ -1,7 +1,7 @@
 import React from 'react';
 import {  useParams } from "react-router-dom"
 
-const Pokemon: React.FC = () => {
+const PokemonDetails: React.FC = () => {
     const {pokemonId} = useParams();
     return (
         <div>
@@ -10,4 +10,4 @@ const Pokemon: React.FC = () => {
     );
 };
 
-export default Pokemon;
+export default PokemonDetails;
