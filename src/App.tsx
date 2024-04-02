@@ -7,8 +7,7 @@ import { createContext, useEffect, useState } from 'react'
 import Root from './routes/root'
 import PokemonDetails from './routes/pokemonDetails'
 
-import pokemonService from './services/pokemonService'
-import { Pokemon } from 'pokenode-ts'
+import pokemonService, { LocalPokemon } from './services/pokemonService'
 
 const router = createBrowserRouter([
     { path: '/', element: <Root /> },
@@ -16,7 +15,7 @@ const router = createBrowserRouter([
 ])
 
 export const PokemonContext = createContext<{
-  pokemons: Pokemon[];
+  pokemons: LocalPokemon[];
 }>({
   pokemons: []
 });
@@ -26,7 +25,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemons, setPokemons] = useState<LocalPokemon[]>([]);
 
   useEffect(() => {
     setIsLoading(true);

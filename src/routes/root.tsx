@@ -13,7 +13,6 @@ const Root: React.FC = () => {
             />
             <ul>
                 {context.pokemons.map((pokemon) => {
-                    console.log(pokemon);
                     return (
                         <li key={pokemon.id}>
                             <a href={`/pokemons/${pokemon.id}`}>{pokemon.name}</a>
