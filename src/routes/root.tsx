@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { PokemonContext } from '../App';
 import { LocalPokemon } from '../services/pokemonService';
+import SearchPokemons from '../components/SearchPokemons';
 
 
 const Root: React.FC = () => {
@@ -9,31 +10,29 @@ const Root: React.FC = () => {
 
 
 
-    const filterPokemons = (search: string) => {
-        setFilteredPokemons(context.pokemons.filter((pokemon) => {
-            return pokemon.name.includes(search);
-        }));
+    const filterPokemons = (search: string, type: string) => {
+        let filteredPokemons = context.pokemons;
+        if(search) {
+            filteredPokemons = filteredPokemons.filter((pokemon) => {
+                return pokemon.name.toLowerCase().includes(search.toLowerCase());
+            });
+        }
+        if(type) {
+            filteredPokemons = filteredPokemons.filter((pokemon) => {
+                return pokemon.types.includes(type);
+            });
+        }
+        setFilteredPokemons(filteredPokemons);
     }
 
     return (
         <div>
             <h1>Pokedex</h1>
-            <input 
-                type='text'
-                placeholder='Search Pokemon'
-                onChange={(event) => filterPokemons(event.target.value)}
+            <br/>
+            <SearchPokemons 
+                onChange={(search, type) => filterPokemons(search, type)}
+                types={context.pokemonTypes}
             />
-            
-            <label htmlFor="types">Choose a type:</label>
-
-            <select name="types" id="types">
-                {context.pokemonTypes.map((type) => {
-                    return (
-                        <option key={type} value={type}>{type}</option>
-                    );
-                })}
-            </select>
-
             <ul>
                 {filteredPokemons.map((pokemon: LocalPokemon) => {
                     return (
