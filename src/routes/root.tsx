@@ -27,7 +27,7 @@ const Root: React.FC = () => {
 
     return (
         <div className='w-full bg-slate-300 '>
-            <h1>Pokedex</h1>
+            <h1 className='text-start'>Pokedex</h1>
             <br/>
             <SearchPokemons 
                 onChange={(search, type) => filterPokemons(search, type)}
