@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { PokemonContext } from '../App';
 import { LocalPokemon } from '../services/pokemonService';
 import SearchPokemons from '../components/SearchPokemons';
+import { Link } from 'react-router-dom';
 
 
 const Root: React.FC = () => {
@@ -23,6 +24,8 @@ const Root: React.FC = () => {
             });
         }
         setFilteredPokemons(filteredPokemons);
+        context.lastSearch = search;
+        context.lastTypeSelected = type;
     }
 
     return (
@@ -37,20 +40,19 @@ const Root: React.FC = () => {
                 {filteredPokemons.map((pokemon: LocalPokemon) => {
                     return (
                         <li
+                            
+                        key={pokemon.id}>
+                            <Link 
                             className='
                                 h-24
                                 align-center
                                 flex
                                 flex-row
                                 text-start hover:bg-slate-400 p-2 cursor-pointer'
-                        key={pokemon.id}>
-                            {pokemon.image && <img src={pokemon.image} alt={pokemon.name} />}
-                            <a 
-                                className='
-                                    text-xl
-                                    self-center
-                                    ml-4'
-                                href={`/pokemons/${pokemon.id}`}>{pokemon.name}</a>
+                            to={`/pokemons/${pokemon.id}`}>
+                                    {pokemon.image && <img src={pokemon.image} alt={pokemon.name} />}
+                                    <div className='self-center'>{pokemon.name}</div>
+                            </Link>
                         </li>
                     );
                 })}

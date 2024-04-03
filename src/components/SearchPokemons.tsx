@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PokemonContext } from "../App";
 
 export default function SearchPokemons(
     {
@@ -10,8 +11,17 @@ export default function SearchPokemons(
         types: string[]
     }){
     
-    const [search, setSearch] = useState('');
-    const [selectedType, setSelectedType] = useState('');
+    const context = useContext(PokemonContext);
+
+    const [search, setSearch] = useState(context.lastSearch || '');
+    const [selectedType, setSelectedType] = useState(context.lastTypeSelected || '');
+
+    useEffect(() => {
+        console.log("context.lastSearch", context.lastSearch);
+        setSearch(context.lastSearch || '');
+        setSelectedType(context.lastTypeSelected || '');
+        onChange && onChange(context.lastSearch || '', context.lastTypeSelected || '');
+    }, []);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
@@ -30,10 +40,12 @@ export default function SearchPokemons(
                 type="text"
                 placeholder="Search Pokemon"
                 onChange={handleSearch}
+                value={search}
             />
             <div className="flex flex-col border-2 border-gray-500 p-1 basis-1/3">
                 <label htmlFor="types">Choose a type:</label>
                 <select 
+                    defaultValue={selectedType}
                     id="types" name="types" onChange={handleTypeChange}>
                     <option value="">All</option>
                     {types.map(type => {

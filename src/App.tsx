@@ -17,9 +17,13 @@ const router = createBrowserRouter([
 export const PokemonContext = createContext<{
   pokemons: LocalPokemon[];
   pokemonTypes: string[];
+  lastSearch?: string;
+  lastTypeSelected?: string;
 }>({
   pokemons: [],
-  pokemonTypes: []
+  pokemonTypes: [],
+  lastSearch: '',
+  lastTypeSelected: '',
 });
 
 

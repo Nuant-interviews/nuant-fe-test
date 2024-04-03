@@ -1,7 +1,6 @@
 import { Pokemon, PokemonClient } from 'pokenode-ts';
 import React, { useState } from 'react';
 import {  useParams } from "react-router-dom"
-
 const PokemonDetails: React.FC = () => {
     const {pokemonId} = useParams();
     const [pokemon, setPokemon] = useState<Pokemon | null>(null);
@@ -38,8 +37,8 @@ const PokemonDetails: React.FC = () => {
                 <div className='text-2xl'>{pokemon?.name}</div>
                 <br/>
                 <div>Base xp: {pokemon?.base_experience}</div>
-                <div>Height: {pokemon?.height}</div>
-                <div>Weight: {pokemon?.weight}</div>
+                <div>Height: {pokemon?.height ? pokemon?.height / 10 : 'NA'} m</div>
+                <div>Weight: {pokemon?.weight ? pokemon?.weight / 10 : 'NA'} kg</div>
             </div>
             
             <br/>
