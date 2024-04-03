@@ -16,8 +16,10 @@ const router = createBrowserRouter([
 
 export const PokemonContext = createContext<{
   pokemons: LocalPokemon[];
+  pokemonTypes: string[];
 }>({
-  pokemons: []
+  pokemons: [],
+  pokemonTypes: []
 });
 
 
@@ -26,11 +28,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [pokemons, setPokemons] = useState<LocalPokemon[]>([]);
+  const [pokemonTypes, setPokemonTypes] = useState<string[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
-    pokemonService.getAllPokemons().then((pokemonsList) => {
+    Promise.all([
+      pokemonService.getAllPokemons(),
+      pokemonService.getAllPokemonTypes()
+    ]).then(([pokemonsList, typesList]) => {
       setPokemons(pokemonsList);
+      setPokemonTypes(typesList);
       setIsLoading(false);
     });
   }, []);
@@ -41,7 +48,7 @@ function App() {
     <>
       {isLoading ? 
         <div>Loading...</div> : 
-        <PokemonContext.Provider value={{pokemons}}>
+        <PokemonContext.Provider value={{pokemons, pokemonTypes}}>
           <RouterProvider router={router}/>
         </PokemonContext.Provider>
       }

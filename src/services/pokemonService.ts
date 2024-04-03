@@ -44,7 +44,7 @@ const retrivePokemons = (): LocalPokemon[] => {
 const getAllPokemons = async (): Promise<LocalPokemon[]> => {
     let pokemons = retrivePokemons();
     if (pokemons.length === 0) {
-        for(let i = 0; i < 13; i++) {
+        for(let i = 0; i <= 13; i++) {
             const partOfPokemons = await fetchAllPokemons({
                 noOfPokemons: 100,
                 offset: i * 100
@@ -56,7 +56,31 @@ const getAllPokemons = async (): Promise<LocalPokemon[]> => {
     return pokemons;
 }
 
+const fetchAllPokemonTypes = async (): Promise<string[]> => {
+    const pokemonClient = new PokemonClient();
+    const pokemonTypes = await pokemonClient.listTypes();
+    return pokemonTypes.results.map(type => type.name);
+}
+
+const storePokemonTypes = (types: string[]) => {
+    localStorage.setItem('pokemonTypes', JSON.stringify(types));
+}
+
+const retrivePokemonTypes = (): string[] => {
+    return JSON.parse(localStorage.getItem('pokemonTypes') || '[]');
+}
+
+const getAllPokemonTypes = async (): Promise<string[]> => {
+    let types = retrivePokemonTypes();
+    if (types.length === 0) {
+        types = await fetchAllPokemonTypes();
+        storePokemonTypes(types);
+    }
+    return types;
+}
+
 
 export default {
-    getAllPokemons: getAllPokemons
+    getAllPokemons: getAllPokemons,
+    getAllPokemonTypes: getAllPokemonTypes,
 }
