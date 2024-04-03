@@ -26,7 +26,7 @@ const Root: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className='w-full bg-slate-300 '>
             <h1>Pokedex</h1>
             <br/>
             <SearchPokemons 
@@ -36,8 +36,21 @@ const Root: React.FC = () => {
             <ul>
                 {filteredPokemons.map((pokemon: LocalPokemon) => {
                     return (
-                        <li key={pokemon.id}>
-                            <a href={`/pokemons/${pokemon.id}`}>{pokemon.name}</a>
+                        <li
+                            className='
+                                h-24
+                                align-center
+                                flex
+                                flex-row
+                                text-start hover:bg-slate-400 p-2 cursor-pointer'
+                        key={pokemon.id}>
+                            {pokemon.image && <img src={pokemon.image} alt={pokemon.name} />}
+                            <a 
+                                className='
+                                    text-xl
+                                    self-center
+                                    ml-4'
+                                href={`/pokemons/${pokemon.id}`}>{pokemon.name}</a>
                         </li>
                     );
                 })}

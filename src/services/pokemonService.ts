@@ -4,6 +4,7 @@ export type LocalPokemon = {
     name: string;
     id: number;
     types: string[];
+    image?: string | null;
 };
 
 
@@ -19,6 +20,7 @@ const fetchAllPokemons = async ({noOfPokemons, offset}: {noOfPokemons: number, o
                     name: pokemonDetails.name,
                     id: pokemonDetails.id,
                     types: pokemonDetails.types.map(type => type.type.name),
+                    image: pokemonDetails.sprites.front_default,
                 });
             }).catch((error) => {
                 console.error(error);

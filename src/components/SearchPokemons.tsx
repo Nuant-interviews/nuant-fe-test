@@ -24,14 +24,14 @@ export default function SearchPokemons(
     }
 
     return (
-        <div className="p-2 sm:flex-col md:flex-row flex">
+        <div className="p-2 flex-row  flex justify-between border-b-2 mb-4 border-gray-500">
             <input
-                className="border-2 border-gray-500 p-1"
+                className="border-2 border-gray-500 p-1 basis-2/3  mr-4"
                 type="text"
                 placeholder="Search Pokemon"
                 onChange={handleSearch}
             />
-            <div className="flex flex-col border-2 border-gray-500 p-1">
+            <div className="flex flex-col border-2 border-gray-500 p-1 basis-1/3">
                 <label htmlFor="types">Choose a type:</label>
                 <select 
                     id="types" name="types" onChange={handleTypeChange}>
