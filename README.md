@@ -18,7 +18,6 @@ The purpose of the test is to implement an app that have the ability of :
 So basically something like:
 ![Screenshot](screenshot.png)
 
--Creative Freedom: You have the autonomy to explore different design approaches and make design decisions based on your expertise and the requirements of the task. This might involve choosing colors, layouts, typography, and other design elements that best fit the project's objectives and target audience.
 
 -Tool and Library Selection: You're encouraged to leverage any libraries, frameworks, or tools that you believe will streamline the development process and enhance the quality of the final product. Whether it's a front-end framework like React.js or a design tool like Figma, choose what aligns best with your skillset and the project requirements.
 
