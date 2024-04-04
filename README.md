@@ -4,7 +4,7 @@ This project uses vite react-ts template which provides a minimal setup to get R
 
 It's been configured with Tailwindcss in case you want to use it Pokenode to retrieve the data of Pokemons
 
-- [Pokenode](https://pokenode-ts.vercel.app/) (hint for the pokenode usage https://pokenode-ts.vercel.app/clients/pokemon-client has `listPokemons` and `listTypes`) 
+- [Pokenode](https://pokenode-ts.vercel.app/) (hint for the pokenode usage https://pokenode-ts.vercel.app/clients/pokemon-client has `listPokemons`, `listTypes`, `getPokemonById` and `getPokemonByName` and many options more!) 
 - [Tailwind](https://tailwindcss.com/)
 
 The purpose of the test is to implement an app that have the ability of :
