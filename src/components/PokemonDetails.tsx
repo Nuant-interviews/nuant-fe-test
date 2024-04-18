@@ -1,7 +1,7 @@
-import usePokemon from "../hooks/usePokemon";
+import usePokemonDetails from "../hooks/usePokemonDetails";
 
 const PokemonDetails = () => {
-  const { pokemon, loading, error } = usePokemon('luxray');
+  const { pokemon, loading, error } = usePokemonDetails('luxray');
 
   if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-red-500">Error loading data!</p>;

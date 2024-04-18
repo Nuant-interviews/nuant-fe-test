@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Pokemon, PokemonClient } from 'pokenode-ts';
 
-const usePokemon = (pokemonName: string) => {
+const usePokemonDetails = (pokemonName: string) => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,4 +29,4 @@ const usePokemon = (pokemonName: string) => {
   return { pokemon, loading, error };
 };
 
-export default usePokemon;
+export default usePokemonDetails

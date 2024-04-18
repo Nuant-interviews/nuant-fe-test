@@ -1,9 +1,9 @@
-import PokemonDetails from "./components/PokemonDetails";
+import PokemonList from "./pages/PokemonList";
 
 function App() {
   return (
     <>
-      <PokemonDetails/>
+      <PokemonList/>
     </>
   )
 }
