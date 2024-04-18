@@ -35,11 +35,7 @@ const PokemonList = () => {
           onChange={(e) => setFilterType(e.target.value)}
         >
           <option value="">Filter by type</option>
-          {types.map((type, index) => (
-            <option key={index} value={type.name} selected={type.name === filterType}>
-              {type.name}
-            </option>
-          ))}
+          {types.map(({ name }) => (<option key={name} value={name}>{name}</option>))}
         </select>
       </div>
       <ErrorLoading error={error} loading={loading}>
@@ -48,7 +44,8 @@ const PokemonList = () => {
             <PokemonCard pokemon={pokemon} key={pokemon.name}/>
           ))}
         </div>
-        {filteredPokemons.length === 0 && <div className="flex justify-center items-center h-20">No pokemons found</div>}
+        {filteredPokemons.length === 0 &&
+          <div className="flex justify-center items-center h-20">No pokemons found</div>}
       </ErrorLoading>
     </div>
   );
