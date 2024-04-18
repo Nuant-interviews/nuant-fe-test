@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Pokemon, PokemonClient } from 'pokenode-ts';
+import { useEffect, useState } from 'react';
+import { Pokemon } from 'pokenode-ts';
+import { api } from '../api';
 
 const usePokemonDetails = (pokemonName: string) => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
@@ -9,7 +10,6 @@ const usePokemonDetails = (pokemonName: string) => {
   useEffect(() => {
     if (!pokemonName) return;
 
-    const api = new PokemonClient();
     setLoading(true);
 
     api.getPokemonByName(pokemonName)

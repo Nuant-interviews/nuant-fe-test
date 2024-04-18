@@ -11,9 +11,8 @@ const PokemonPage = () => {
 
   const filteredPokemons = pokemons.filter(pokemon => {
     const nameMatch = pokemon.name.toLowerCase().includes(filterName.toLowerCase());
-    // const typeMatch = !filterType || pokemon.types.includes(filterType);
-    // return nameMatch && typeMatch;
-    return nameMatch;
+    const typeMatch = !filterType || pokemon.types.includes(filterType);
+    return nameMatch && typeMatch;
   });
 
   return (
