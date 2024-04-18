@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api';
+import { CustomPokemon } from "../models/CustomPokemon";
 
 interface UsePokemonListArgs {
   limit?: number;
   offset?: number;
-}
-
-interface CustomPokemon {
-  id: number
-  name: string
-  types: string[]
 }
 
 const usePokemonList = ({ limit = 50, offset = 0 }: UsePokemonListArgs = {}) => {

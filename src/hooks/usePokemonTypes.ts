@@ -6,13 +6,17 @@ const usePokemonTypes = () => {
   const [types, setTypes] = useState<NamedAPIResource[]>([]);
 
   useEffect(() => {
-    api.listTypes()
-      .then((data) => {
+    const fetchTypes = async () => {
+      try {
+        const data = await api.listTypes();
         setTypes(data.results);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      })
+      }
+    };
+
+    fetchTypes();
+
   }, []);
 
   return { types };

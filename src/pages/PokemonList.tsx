@@ -43,7 +43,7 @@ const PokemonList = () => {
       <ErrorLoading error={error} loading={loading}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredPokemons.map((pokemon, index) => (
-            <div key={pokemon.name} className="border p-4 rounded-lg">
+            <div key={pokemon.name} className="border p-4 rounded-lg hover:bg-sky-900">
               <Link to={`/pokemon/${pokemon.id}`}>
                 <img
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
@@ -52,8 +52,9 @@ const PokemonList = () => {
                 />
                 <h2 className="text-lg font-semibold mt-2 capitalize text-center">{pokemon.name}</h2>
                 <p className="text-sm mt-2 text-center">
-                  Type: {pokemon.types.map((type, index) =>
-                  <span>{type}{index !== pokemon.types.length - 1 ? ', ' : ''} </span>)}
+                  {pokemon.types.map((type) =>
+                    <span key={type}
+                          className="bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-white mr-1">{type}</span>)}
                 </p>
               </Link>
             </div>

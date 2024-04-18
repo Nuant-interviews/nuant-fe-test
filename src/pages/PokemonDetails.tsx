@@ -6,7 +6,7 @@ import { Pokemon } from "pokenode-ts";
 const PokemonDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { pokemon, loading, error } = usePokemonDetails(id);
+  const { pokemon, speciesDetails, loading, error } = usePokemonDetails(id);
   const handleBack = () => {
     navigate(-1);
   };
@@ -25,13 +25,13 @@ const PokemonDetails = () => {
         <div className="grid grid-cols-4">
           {(['front_default', 'front_shiny', 'back_default', 'back_shiny'] as (keyof Pokemon['sprites'])[])
             .map((spriteType) => (
-            <img
-              key={spriteType}
-              src={pokemon.sprites[spriteType] as string}
-              className="mx-auto"
-              style={{ maxWidth: '100px' }}
-            />
-          ))}
+              <img
+                key={spriteType}
+                src={pokemon.sprites[spriteType] as string}
+                className="mx-auto"
+                style={{ maxWidth: '100px' }}
+              />
+            ))}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -67,17 +67,19 @@ const PokemonDetails = () => {
             <h2 className="text-lg font-semibold">Stats</h2>
             <ul>
               {pokemon.stats.map(({ stat, base_stat }) => (
-                <li key={stat.name}>{stat.name}: {base_stat}</li>
+                <li key={stat.name}><span className="font-semibold">{stat.name}:</span> {base_stat}</li>
               ))}
             </ul>
           </div>
         </div>
         <div>
-          <h2 className="text-lg font-semibold">Stats</h2>
-          <p>
-            {pokemon.moves.map(({ move }) => (
-              <span key={move.name}>{move.name}, </span>
-            ))}
+          <h2 className="text-lg font-semibold">Species Details</h2>
+          <p><span className="font-semibold">Shape:</span> {speciesDetails?.shape.name}</p>
+          <p><span className="font-semibold">Habitat:</span> {speciesDetails?.habitat.name}</p>
+          <p><span className="font-semibold">Growth rate:</span> {speciesDetails?.growth_rate.name}</p>
+          <p><span className="font-semibold">Hatch counter:</span> {speciesDetails?.hatch_counter}</p>
+          <p><span
+            className="font-semibold">Hatch gender differences:</span> {speciesDetails?.has_gender_differences ? 'yes' : 'no'}
           </p>
         </div>
       </ErrorLoading>
