@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import usePokemonList from "../hooks/usePokemonList";
 import ErrorLoading from "../components/ErrorLoading";
 import usePokemonTypes from "../hooks/usePokemonTypes";
+import PokemonCard from "../components/PokemonCard";
 
 const PokemonList = () => {
   const { pokemons, loading, error } = usePokemonList();
@@ -10,11 +10,13 @@ const PokemonList = () => {
   const [filterName, setFilterName] = useState('');
   const [filterType, setFilterType] = useState('');
 
-  const filteredPokemons = pokemons.filter(pokemon => {
-    const nameMatch = pokemon.name.toLowerCase().includes(filterName.toLowerCase());
-    const typeMatch = !filterType || pokemon.types.includes(filterType);
-    return nameMatch && typeMatch;
-  });
+  const filteredPokemons = useMemo(() => {
+    return pokemons.filter(pokemon => {
+      const nameMatch = pokemon.name.toLowerCase().includes(filterName.toLowerCase());
+      const typeMatch = !filterType || pokemon.types.includes(filterType);
+      return nameMatch && typeMatch;
+    });
+  }, [pokemons, filterName, filterType]);
 
   return (
     <div className="container mx-auto p-4">
@@ -42,24 +44,11 @@ const PokemonList = () => {
       </div>
       <ErrorLoading error={error} loading={loading}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredPokemons.map((pokemon, index) => (
-            <div key={pokemon.name} className="border p-4 rounded-lg hover:bg-sky-900">
-              <Link to={`/pokemon/${pokemon.id}`}>
-                <img
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
-                  alt={pokemon.name}
-                  className="mx-auto"
-                />
-                <h2 className="text-lg font-semibold mt-2 capitalize text-center">{pokemon.name}</h2>
-                <p className="text-sm mt-2 text-center">
-                  {pokemon.types.map((type) =>
-                    <span key={type}
-                          className="bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-white mr-1">{type}</span>)}
-                </p>
-              </Link>
-            </div>
+          {filteredPokemons.map((pokemon) => (
+            <PokemonCard pokemon={pokemon} key={pokemon.name}/>
           ))}
         </div>
+        {filteredPokemons.length === 0 && <div className="flex justify-center items-center h-20">No pokemons found</div>}
       </ErrorLoading>
     </div>
   );
