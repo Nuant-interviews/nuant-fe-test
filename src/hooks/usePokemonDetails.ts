@@ -1,43 +1,22 @@
-import { useEffect, useState } from 'react';
-import { Pokemon, PokemonSpecies } from 'pokenode-ts';
 import { api } from '../api';
+import { useQuery } from "react-query";
 
 const usePokemonDetails = (id?: string) => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [speciesDetails, setSpeciesDetails] = useState<PokemonSpecies | null>(null);
+  const { data: pokemon, isLoading: pokemonLoading, isError: pokemonError } = useQuery(['pokemonById', id], async () => {
+    if (!id) return null;
 
-  useEffect(() => {
-    const fetchPokemonDetails = async () => {
-      if (!id) return;
+    return api.getPokemonById(+id);
+  });
 
-      setLoading(true);
 
-      try {
-        // Fetch main Pokemon details
-        const pokemonData = await api.getPokemonById(+id);
-        setPokemon(pokemonData);
+  const { data: speciesDetails, isLoading: speciesLoading, isError: speciesError } = useQuery(['pokemonSpecies', id], async () => {
+    if (!id) return null;
 
-        // Fetch form details if available
-        if (pokemonData.forms && pokemonData.forms.length > 0) {
-          // const formId = pokemonData.forms[0].id; // Assuming the first form is the default
-          const speciesDetails = await api.getPokemonSpeciesById(+id);
-          setSpeciesDetails(speciesDetails);
-          console.log(speciesDetails);
-        }
+    return await api.getPokemonSpeciesById(+id);
+  });
 
-        setError(null);
-      } catch (error: any) { // eslint-disable-line
-        console.error(error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPokemonDetails();
-  }, [id]);
+  const loading = pokemonLoading || speciesLoading;
+  const error = pokemonError || speciesError;
 
   return { pokemon, loading, error, speciesDetails };
 };

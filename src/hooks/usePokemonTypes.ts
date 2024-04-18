@@ -1,25 +1,13 @@
-import { useState, useEffect } from 'react';
-import { NamedAPIResource } from 'pokenode-ts';
+import { useQuery } from 'react-query';
 import { api } from '../api';
 
 const usePokemonTypes = () => {
-  const [types, setTypes] = useState<NamedAPIResource[]>([]);
+  const { data: types = [], isLoading, isError } = useQuery('pokemonTypes', async () => {
+    const data = await api.listTypes();
+    return data.results;
+  });
 
-  useEffect(() => {
-    const fetchTypes = async () => {
-      try {
-        const data = await api.listTypes();
-        setTypes(data.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTypes();
-
-  }, []);
-
-  return { types };
+  return { types, isLoading, isError };
 };
 
 export default usePokemonTypes;

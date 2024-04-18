@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import { api } from '../api';
 import { CustomPokemon } from "../models/CustomPokemon";
+import { useQuery } from "react-query";
 
 interface UsePokemonListArgs {
   limit?: number;
@@ -8,44 +8,26 @@ interface UsePokemonListArgs {
 }
 
 const usePokemonList = ({ limit = 50, offset = 0 }: UsePokemonListArgs = {}) => {
-  const [pokemons, setPokemons] = useState<CustomPokemon[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const {data, isLoading, isError} = useQuery(['pokemonList', { limit, offset }], async () => {
+    const pokemonResponse = await api.listPokemons(offset, limit);
+    const pokemonPromises = pokemonResponse.results.map(async (pokemon) => {
+      const pokemonDetails = await api.getPokemonByName(pokemon.name);
+      const pokemonData: CustomPokemon = {
+        name: pokemonDetails.name,
+        id: pokemonDetails.id,
+        types: pokemonDetails.types.map((type) => type.type.name),
+      };
+      return pokemonData;
+    });
 
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      try {
-        setLoading(true);
-        const pokemonResponse = await api.listPokemons(offset, limit);
-        const pokemonPromises = pokemonResponse.results.map(async (pokemon) => {
-          try {
-            const pokemonDetails = await api.getPokemonByName(pokemon.name);
-            const pokemonData: CustomPokemon = {
-              name: pokemonDetails.name,
-              id: pokemonDetails.id,
-              types: pokemonDetails.types.map((type) => type.type.name),
-            };
-            return pokemonData;
-          } catch (error) {
-            console.error(error);
-            throw error;
-          }
-        });
-        const pokemonsList = await Promise.all(pokemonPromises);
-        setPokemons(pokemonsList);
-        setError(null);
-      } catch (error: any) { // eslint-disable-line
-        console.error(error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    return await Promise.all(pokemonPromises);
+  });
 
-    fetchPokemons();
-  }, [limit, offset]);
-
-  return { pokemons, loading, error };
+  return {
+    pokemons: data ?? [],
+    loading: isLoading,
+    error: isError
+  }
 };
 
 export default usePokemonList;
