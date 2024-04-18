@@ -9,6 +9,13 @@ const PokemonPage = () => {
   const [filterName, setFilterName] = useState('');
   const [filterType, setFilterType] = useState('');
 
+  const filteredPokemons = pokemons.filter(pokemon => {
+    const nameMatch = pokemon.name.toLowerCase().includes(filterName.toLowerCase());
+    // const typeMatch = !filterType || pokemon.types.includes(filterType);
+    // return nameMatch && typeMatch;
+    return nameMatch;
+  });
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Pokedex</h1>
@@ -35,7 +42,7 @@ const PokemonPage = () => {
       </div>
       <ErrorLoading error={error} loading={loading}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {pokemons.map((pokemon, index) => (
+          {filteredPokemons.map((pokemon, index) => (
             <div key={pokemon.name} className="border p-4 rounded-lg">
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
