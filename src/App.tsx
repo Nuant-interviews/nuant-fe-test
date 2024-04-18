@@ -1,18 +1,9 @@
-import { PokemonClient } from 'pokenode-ts';
+import PokemonDetails from "./components/PokemonDetails";
 
 function App() {
-  (async () => {
-    const api = new PokemonClient();
-
-    await api
-      .getPokemonByName('luxray')
-      .then((data) => console.log(data)) // will output "Luxray"
-      .catch((error) => console.error(error));
-  })();
-
   return (
     <>
-
+      <PokemonDetails/>
     </>
   )
 }
