@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import usePokemonList from "../hooks/usePokemonList";
 import ErrorLoading from "../components/ErrorLoading";
 import usePokemonTypes from "../hooks/usePokemonTypes";
 
-const PokemonPage = () => {
+const PokemonList = () => {
   const { pokemons, loading, error } = usePokemonList();
   const { types } = usePokemonTypes()
   const [filterName, setFilterName] = useState('');
@@ -43,12 +44,18 @@ const PokemonPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredPokemons.map((pokemon, index) => (
             <div key={pokemon.name} className="border p-4 rounded-lg">
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
-                alt={pokemon.name}
-                className="mx-auto"
-              />
-              <h2 className="text-lg font-semibold mt-2 capitalize text-center">{pokemon.name}</h2>
+              <Link to={`/pokemon/${pokemon.id}`}>
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
+                  alt={pokemon.name}
+                  className="mx-auto"
+                />
+                <h2 className="text-lg font-semibold mt-2 capitalize text-center">{pokemon.name}</h2>
+                <p className="text-sm mt-2 text-center">
+                  Type: {pokemon.types.map((type, index) =>
+                  <span>{type}{index !== pokemon.types.length - 1 ? ', ' : ''} </span>)}
+                </p>
+              </Link>
             </div>
           ))}
         </div>
@@ -57,4 +64,4 @@ const PokemonPage = () => {
   );
 };
 
-export default PokemonPage;
+export default PokemonList;

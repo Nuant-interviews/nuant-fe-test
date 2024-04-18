@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { api } from '../api';
 
-const usePokemonDetails = (pokemonName: string) => {
+const usePokemonDetails = (id?: string) => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!pokemonName) return;
+    if (!id) return;
 
     setLoading(true);
 
-    api.getPokemonByName(pokemonName)
+    api.getPokemonById(+id)
       .then((data) => {
         setPokemon(data);
         setError(null);
@@ -24,7 +24,7 @@ const usePokemonDetails = (pokemonName: string) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [pokemonName]);
+  }, [id]);
 
   return { pokemon, loading, error };
 };
