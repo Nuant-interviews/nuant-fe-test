@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import usePokemonList from "../hooks/usePokemonList";
 import ErrorLoading from "../components/ErrorLoading";
+import usePokemonTypes from "../hooks/usePokemonTypes";
 
 const PokemonPage = () => {
   const { pokemons, loading, error } = usePokemonList();
+  const { types } = usePokemonTypes()
   const [filterName, setFilterName] = useState('');
   const [filterType, setFilterType] = useState('');
 
@@ -24,9 +26,11 @@ const PokemonPage = () => {
           onChange={(e) => setFilterType(e.target.value)}
         >
           <option value="">Filter by type</option>
-          <option value="grass">Grass</option>
-          <option value="fire">Fire</option>
-          <option value="water">Water</option>
+          {types.map((type, index) => (
+            <option key={index} value={type.name} selected={type.name === filterType}>
+              {type.name}
+            </option>
+          ))}
         </select>
       </div>
       <ErrorLoading error={error} loading={loading}>
